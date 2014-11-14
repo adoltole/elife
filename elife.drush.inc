@@ -79,12 +79,12 @@ if ($url==NULL){
   drush_shell_exec_interactive("cd ".$project_name."/httpdocs && drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/pre_$project_name");
 
 //Create new site in Apache
-  drush_shell_exec_interactive("sudo cp /etc/apache2/sites-available/defaultapache-pre.conf /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -e -i 's/PROJECT/$project_name/g' -e -i 's/AUTHNAME/$AuthName/g' -e -i 's/AUTHUSERFILE/$AuthUserFile/g' -e -i 's/DOMAINTERMINATION/$DomainTermination/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf ");
+  drush_shell_exec_interactive("sudo cp /etc/apache2/sites-available/defaultapache-pre.conf /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/PROJECT/$project_name/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/AUTHNAME/$AuthName/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/AUTHUSERFILE/$AuthUserFile/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/DOMAINTERMINATION/$DomainTermination/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf ");
 
 //Enable the new site  
-  drush_shell_exec_interactive("sudo a2ensite $project_name-$DomainTermination.conf && sudo service apache2 reload && chown $deployer_user:www-data /var/www/$project_name -R && chown www-data:www-data /var/www/$project_name/httpdocs/sites/default/files -R");
+  drush_shell_exec_interactive("sudo a2ensite $project_name.$DomainTermination.conf && sudo service apache2 reload");
 
 //Set correct user of drupal root
-drush_shell_exec_interactive("chown $deployer_user:www-data /var/www/$project_name -R && chown www-data:www-data /var/www/$project_name/httpdocs/sites/default/files -R");
+drush_shell_exec_interactive("sudo chown $deployer_user:www-data /var/www/$project_name -R && sudo chown www-data:www-data /var/www/$project_name/httpdocs/sites/default/files -R");
 
 }
