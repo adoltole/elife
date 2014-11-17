@@ -82,7 +82,7 @@ if ($url==NULL){
   drush_shell_exec_interactive("sudo cp /etc/apache2/sites-available/defaultapache-pre.conf /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
 drush_shell_exec_interactive("sudo sed -i 's/PROJECT/$project_name/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
 drush_shell_exec_interactive("sudo sed -i 's/AUTHNAME/$AuthName/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
-drush_shell_exec_interactive("sudo sed -i 's/AUTHUSERFILE/$AuthUserFile/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
+drush_shell_exec_interactive("sudo sed -i 's|AUTHUSERFILE|$AuthUserFile|g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
 drush_shell_exec_interactive("sudo sed -i 's/DOMAINTERMINATION/$DomainTermination/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
 
 //Enable the new site  
