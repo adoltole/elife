@@ -106,7 +106,8 @@ else {
   drush_shell_exec_interactive("sudo sed -i 's/PROJECT/$project_name/g' /etc/apache2/sites-available/$newdomain.$TLD.conf");
   drush_shell_exec_interactive("sudo sed -i 's/DOMAIN/$newdomain/g' /etc/apache2/sites-available/$newdomain.$TLD.conf");
   drush_shell_exec_interactive("sudo sed -i 's/TLD/$TLD/g' /etc/apache2/sites-available/$newdomain.$TLD.conf");
-  }
+  drush_print ('The new environment has been created, you can change your virtualhost manually if needed');
+ }
 
 //Enable the new site  
   if ($env==pre){  
