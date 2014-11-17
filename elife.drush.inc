@@ -79,7 +79,11 @@ if ($url==NULL){
   drush_shell_exec_interactive("cd ".$project_name."/httpdocs && drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/pre_$project_name");
 
 //Create new site in Apache
-  drush_shell_exec_interactive("sudo cp /etc/apache2/sites-available/defaultapache-pre.conf /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/PROJECT/$project_name/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/AUTHNAME/$AuthName/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/AUTHUSERFILE/$AuthUserFile/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf && sudo sed -i 's/DOMAINTERMINATION/$DomainTermination/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf ");
+  drush_shell_exec_interactive("sudo cp /etc/apache2/sites-available/defaultapache-pre.conf /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
+drush_shell_exec_interactive("sudo sed -i 's/PROJECT/$project_name/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
+drush_shell_exec_interactive("sudo sed -i 's/AUTHNAME/$AuthName/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
+drush_shell_exec_interactive("sudo sed -i 's/AUTHUSERFILE/$AuthUserFile/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
+drush_shell_exec_interactive("sudo sed -i 's/DOMAINTERMINATION/$DomainTermination/g' /etc/apache2/sites-available/$project_name.$DomainTermination.conf");
 
 //Enable the new site  
   drush_shell_exec_interactive("sudo a2ensite $project_name.$DomainTermination.conf && sudo service apache2 reload");
