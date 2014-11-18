@@ -89,7 +89,7 @@ include 'vars.php';
   $database_user_pw = $random;
 
 //Site install pre and pro
-  drush_shell_exec_interactive("cd ".$project_name."/httpdocs && sudo -u '.$deployer_user.' drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/".$env."_$project_name");
+  drush_shell_exec_interactive("cd ".$project_name."/httpdocs && sudo -u $deployer_user drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/".$env."_$project_name");
 
 //Create new site in Apache pre and pro
   if ($env==pre){
