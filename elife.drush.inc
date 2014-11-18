@@ -77,7 +77,7 @@ include 'vars.php';
 
   $project_name = drush_prompt("What's the project name", $project_name);
   drush_print ('I am cloning the repository into your machine, it can take a bit of time');
-  drush_shell_exec_interactive('sudo git clone '.$url.' '.$project_name);
+  drush_shell_exec_interactive('sudo su '.$deployer_user.' && git clone '.$url.' '.$project_name);
 
   $random = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
 
