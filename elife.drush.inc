@@ -78,18 +78,19 @@ include 'vars.php';
   $project_name = drush_prompt("What's the project name", $project_name);
   drush_print ('I am cloning the repository into your machine, it can take a bit of time');
   drush_shell_exec_interactive('sudo -u '.$deployer_user.' git clone '.$url.' '.$project_name);
-
+  $database_name =str_replace("-","_",$project_name);
   $random = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
 
   drush_print ('Now enter some parameters for the development site, please\n\r');
   $admin_pass = $random;
   $site_name = ('unnamed');
   $site_email = 'my@example.com';
-  $database_user = substr ($project_name, 0, 16);
+  $database_user = str_replace("-","_",substr($project_name, 0, 16));
+
   $database_user_pw = $random;
 
 //Site install pre and pro
-  drush_shell_exec_interactive("cd ".$project_name."/httpdocs && sudo -u $deployer_user drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/".$env."_$project_name");
+  drush_shell_exec_interactive("cd ".$project_name."/httpdocs && sudo -u $deployer_user drush site-install minimal --site-name=$site_name --account-pass=$admin_pass --db-su=$database_root --db-su-pw=$database_root_pw --db-url=mysql://$database_user:$database_user_pw@localhost/".$env."_$database_name");
 
 //Create new site in Apache pre and pro
   if ($env==pre){
